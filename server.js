@@ -1,7 +1,12 @@
-const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use('/', (req, res, next) => {
     console.log('In the middleware');
@@ -10,6 +15,7 @@ app.use('/', (req, res, next) => {
 
 app.use('/user', (req, res, next) => {
     console.log('User middleware');
+    console.log(req.body);
     next();
 });
 
