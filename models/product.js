@@ -9,11 +9,15 @@ const p = path.join(
 
 const getProductsFromFile = cb => {
     fs.readFile(p, (err, fileContent) => {
-        let products = [];
         if(!err){
-            products = JSON.parse(fileContent);
+            try {
+                cb(JSON.parse(fileContent));
+            } catch(e) {
+                cb([]);
+                console.error("Error while reading on file ", e);
+            }
         }
-        cb(products);
+        cb([]);
     });
 }
 
